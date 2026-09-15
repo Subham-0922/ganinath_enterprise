@@ -85,3 +85,32 @@ textarea,
 select {
 	margin: 0;
 }
+
+.customer-scrollbar {
+	scrollbar-color: rgba(103, 232, 249, 0.7) transparent;
+	scrollbar-width: thin;
+}
+
+.customer-scrollbar::-webkit-scrollbar {
+	width: 6px;
+}
+
+.customer-scrollbar::-webkit-scrollbar-track,
+.customer-scrollbar::-webkit-scrollbar-button {
+	background: transparent;
+}
+
+.customer-scrollbar::-webkit-scrollbar-button {
+	display: none;
+	height: 0;
+	width: 0;
+}
+
+.customer-scrollbar::-webkit-scrollbar-thumb {
+	background: rgba(103, 232, 249, 0.7);
+	border-radius: 999px;
+}
+
+.customer-scrollbar::-webkit-scrollbar-thumb:hover {
+	background: rgba(165, 243, 252, 0.9);
+}

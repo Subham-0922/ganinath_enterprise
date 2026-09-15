@@ -181,9 +181,11 @@ function SalesScreen() {
           <select
             value={selectedCustomer}
             onChange={(event) => setSelectedCustomer(event.target.value)}
-            className="mt-1 block rounded-lg border border-white/20 px-3 py-2 text-white"
+            className="mt-1 bg-transparent block rounded-lg border border-white/20 px-3 py-2 text-white"
           >
-            <option value="">All Customers</option>
+            <option className="bg-black" value="">
+              All Customers
+            </option>
 
             {customerList.map((customer) => {
               const name = typeof customer === 'string'
@@ -191,7 +193,7 @@ function SalesScreen() {
                 : customer.name
 
               return (
-                <option key={customer.id ?? name} value={name}>
+                <option className="bg-black" key={customer.id ?? name} value={name}>
                   {name}
                 </option>
               )
@@ -205,7 +207,7 @@ function SalesScreen() {
             type="date"
             value={fromDate}
             onChange={(event) => setFromDate(event.target.value)}
-            className="mt-1 block rounded-lg border border-white/20 px-3 py-2 text-white"
+            className="mt-1 block date-icon-white rounded-lg border border-white/20 px-3 py-2 text-white"
           />
         </label>
 
@@ -216,7 +218,7 @@ function SalesScreen() {
             value={toDate}
             min={fromDate || undefined}
             onChange={(event) => setToDate(event.target.value)}
-            className="mt-1 block rounded-lg border border-white/20 px-3 py-2 text-white"
+            className="mt-1 block date-icon-white rounded-lg border border-white/20 px-3 py-2 text-white"
           />
         </label>
 

@@ -4,3 +4,6 @@
   background-position: center;
 
 }
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1); /* white icon */
+}

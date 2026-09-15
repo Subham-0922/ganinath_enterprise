@@ -5,11 +5,11 @@
   "type": "module",
   "main": "electron/main.cjs",
   "scripts": {
-  "dev": "vite",
-  "electron": "electron .",
-  "build": "vite",
-  "dist": "npm run build && electron-builder"
-},
+    "dev": "vite",
+    "electron": "electron .",
+    "build": "vite",
+    "dist": "npm run build && electron-builder"
+  },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "idb": "^8.0.3",

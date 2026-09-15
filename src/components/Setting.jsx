@@ -18,6 +18,7 @@ function Setting({ onClose }) {
   const [gstNumber, setGstNumber] = useState('')
   const [customerNames, setCustomerNames] = useState([])
   const [customerName, setCustomerName] = useState('')
+  const [showAllCustomers, setShowAllCustomers] = useState(false)
 
   useEffect(() => {
     const loadSettings = async () => {
@@ -72,7 +73,7 @@ function Setting({ onClose }) {
   }
 
   const inputClass =
-    'mt-2 w-full rounded-xl border border-white/25 bg-white/10 px-4 py-3 text-sm text-white outline-none placeholder:text-white/40 focus:border-cyan-300 focus:bg-white/15 focus:ring-2 focus:ring-cyan-300/30'
+    'mt-1 w-full rounded-lg border border-white/25 bg-white/10 px-3 py-2 text-sm text-white outline-none placeholder:text-white/40 focus:border-cyan-300 focus:bg-white/15 focus:ring-2 focus:ring-cyan-300/30'
 
   const exportAllDatabase = async () => {
     try {
@@ -146,13 +147,13 @@ function Setting({ onClose }) {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md">
-      <div className="w-full max-w-xl rounded-3xl border border-white/20 bg-black/40 p-6 text-white shadow-2xl backdrop-blur-2xl">
-        <div className="mb-6 flex items-start justify-between border-b border-white/15 pb-4">
+      <div className="max-h-[90vh] w-full max-w-xl overflow-y-auto rounded-2xl border border-white/20 bg-black/40 p-4 text-white shadow-2xl backdrop-blur-2xl sm:p-5">
+        <div className="mb-4 flex items-start justify-between border-b border-white/15 pb-3">
           <div>
             <p className="text-xs uppercase tracking-[0.25em] text-cyan-300">
               Application Settings
             </p>
-            <h2 className="mt-1 text-2xl font-semibold">Settings</h2>
+            <h2 className="mt-1 text-xl font-semibold">Settings</h2>
           </div>
 
           <button type="button" onClick={onClose} className="text-xl">
@@ -170,7 +171,7 @@ function Setting({ onClose }) {
           />
         </label>
 
-        <label className="mt-5 block text-sm font-medium">
+        <label className="mt-3 block text-sm font-medium">
           GST Number
           <input
             value={gstNumber}
@@ -180,59 +181,71 @@ function Setting({ onClose }) {
           />
         </label>
 
-        <div className="mt-6">
+        <div className="mt-4">
           <h3 className="text-sm font-medium">Customer Names</h3>
 
-          <form onSubmit={addCustomer} className="mt-2 flex gap-2">
+          <form onSubmit={addCustomer} className="mt-1 flex gap-2">
             <input
               value={customerName}
               onChange={(event) => setCustomerName(event.target.value)}
-              className={inputClass.replace('mt-2 ', 'mt-0 ')}
+              className={inputClass.replace('mt-1 ', 'mt-0 ')}
               placeholder="Enter customer name"
             />
 
-            <button type="submit" className="rounded-xl bg-cyan-500 px-4">
+            <button type="submit" className="rounded-lg bg-cyan-500 px-3 text-sm">
               Add
             </button>
           </form>
 
-          <div className="mt-4 space-y-2">
-            {customerNames.map((customer) => (
-              <div
-                key={customer.id}
-                className="flex items-center justify-between rounded-xl border border-white/15 px-4 py-3"
-              >
-                <span>{customer.name}</span>
+          <button
+            type="button"
+            onClick={() => setShowAllCustomers((current) => !current)}
+            className="mt-3 w-full rounded-lg border border-cyan-300/40 bg-cyan-500/10 px-3 py-2 text-left text-sm text-cyan-100 transition hover:bg-cyan-500/20"
+          >
+            {showAllCustomers
+              ? 'Hide customer list'
+              : `Show all customers (${customerNames.length})`}
+          </button>
 
-                <button
-                  type="button"
-                  onClick={() => removeCustomer(customer)}
-                  className="rounded-lg bg-red-500/20 px-3 py-1.5 text-xs"
+          {showAllCustomers && (
+            <div className="customer-scrollbar mt-2 max-h-40 space-y-1.5 overflow-y-auto pr-1">
+              {customerNames.map((customer) => (
+                <div
+                  key={customer.id}
+                  className="flex items-center justify-between rounded-lg border border-white/15 px-3 py-2 text-sm"
                 >
-                  Remove
-                </button>
-              </div>
-            ))}
-          </div>
+                  <span>{customer.name}</span>
+
+                  <button
+                    type="button"
+                    onClick={() => removeCustomer(customer)}
+                    className="rounded-md bg-red-500/20 px-2 py-1 text-xs"
+                  >
+                    Remove
+                  </button>
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        <div className="mt-6 flex justify-end border-t border-white/15 pt-4">
+        <div className="mt-4 flex justify-end border-t border-white/15 pt-3">
           <button
             type="button"
             onClick={onClose}
-            className="rounded-xl bg-linear-to-r from-cyan-500 to-blue-600 px-5 py-2.5"
+            className="rounded-lg bg-linear-to-r from-cyan-500 to-blue-600 px-4 py-2 text-sm"
           >
             Done
           </button>
         </div>
 
-        <div className="mt-3 flex justify-end gap-2">
-          <label className="flex cursor-pointer items-center gap-2 rounded-xl bg-blue-500 px-3 py-2 text-sm">
+        <div className="mt-2 flex flex-wrap justify-end gap-2">
+          <label className="flex cursor-pointer items-center gap-2 rounded-lg bg-blue-500 px-2.5 py-1.5 text-xs">
             <img
               src={importIcon}
               alt=""
               aria-hidden="true"
-              className="h-4 w-4 object-contain"
+              className="h-3.5 w-3.5 object-contain"
             />
             Import Database
             <input
@@ -246,13 +259,13 @@ function Setting({ onClose }) {
           <button
             type="button"
             onClick={removeAllDatabaseData}
-            className="flex items-center gap-2 rounded-xl bg-red-500/80 px-3 py-2 text-sm"
+            className="flex items-center gap-2 rounded-lg bg-red-500/80 px-2.5 py-1.5 text-xs"
           >
             <img
               src={removeIcon}
               alt=""
               aria-hidden="true"
-              className="h-4 w-4 object-contain"
+              className="h-3.5 w-3.5 object-contain"
             />
             Remove Database
           </button>
@@ -260,13 +273,13 @@ function Setting({ onClose }) {
           <button
             type="button"
             onClick={exportAllDatabase}
-            className="flex items-center gap-2 rounded-xl bg-green-500/80 px-3 py-2 text-sm"
+            className="flex items-center gap-2 rounded-lg bg-green-500/80 px-2.5 py-1.5 text-xs"
           >
             <img
               src={exportIcon}
               alt=""
               aria-hidden="true"
-              className="h-4 w-4 object-contain"
+              className="h-3.5 w-3.5 object-contain"
             />
             Export Database
           </button>
