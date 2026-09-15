@@ -1,35 +1,21 @@
 <<<<<<< HEAD
 # ganinath_enterprise
-Client Application
-=======
-# React + Vite
-
-# 🚀 How to Run the Software
-
 Follow the steps below to run the software on your computer.
-
 ## 1. 📦 Install Dependencies
-
 **Run this command only the first time** after downloading/cloning the project:
-
 ```bash
 npm i
 ```
-
 This installs all the required dependencies.
-
 ---
 
 ## 2. 🌐 Run in Browser
-
 To run the application only in the browser:
 
 ```bash
 npm run dev
 ```
-
 After running the command, open the URL shown in the terminal (usually something like `http://localhost:5173`).
-
 ---
 
 ## 3. 💻 Run the Software with Electron
